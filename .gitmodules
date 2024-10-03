@@ -1,0 +1,3 @@
+[submodule "traggo/traggo/server"]
+	path = traggo/traggo/server
+	url = https://github.com/traggo/server
