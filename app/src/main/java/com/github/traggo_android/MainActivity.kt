@@ -1,75 +1,90 @@
-package com.github.traggo_android
+package com.github.traggo_android;
 
-import android.content.ContentValues.TAG
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.ComponentActivity
-import androidx.annotation.RequiresApi
-import java.io.File
-import java.io.IOException
-import kotlin.concurrent.thread
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.github.traggo_android.fragment.WebViewFragment
+import com.github.traggo_android.fragment.SettingsFragment
+import com.github.traggo_android.service.TraggoRunnable
+import com.google.android.material.navigation.NavigationView
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    fun makeFileExecutable(file: File){
+    lateinit var toolbar: Toolbar
+    lateinit var drawer_layout:DrawerLayout
+    lateinit var nav_view:NavigationView
 
-        try {
-            Log.d(TAG, "chmod 500 $file")
-
-            val p = ProcessBuilder("chmod", "500", file.path).start()
-            p.waitFor()
-        } catch (e: IOException) {
-            Log.e(TAG, "Failed to chmod $file", e)
-        } catch (e: InterruptedException) {
-            Log.e(TAG, "Failed to chmod $file", e)
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
-        thread {
+        Thread(TraggoRunnable(applicationContext)).start()
 
-            val nativeDir = applicationContext.applicationInfo.nativeLibraryDir
+        toolbar = findViewById(R.id.toolbar)
+        drawer_layout=findViewById(R.id.drawer_layout)
+        nav_view=findViewById(R.id.nav_view)
 
-            val traggoPath = File("$nativeDir/libtraggo.so")
-            val targgoDbPath = applicationContext.getDatabasePath("traggo.db").absolutePath
+        setSupportActionBar(toolbar)
 
-            Log.d(TAG, "Traggo is located at $traggoPath")
+        val toggle = ActionBarDrawerToggle(
+                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawer_layout.addDrawerListener(toggle)
+        toggle.syncState()
 
-            if(!traggoPath.exists()){
+        nav_view.setNavigationItemSelectedListener(this)
 
-                Log.i(TAG,"Traggo does not exist!!!")
+        displayScreen(R.id.webview)
+    }
 
-                return@thread;
-            }
-
-            makeFileExecutable(traggoPath)
-
-            val pb =  ProcessBuilder(traggoPath.path)
-
-            pb.environment()["TRAGGO_DATABASE_CONNECTION"] = targgoDbPath
-
-            val p =pb
-                .redirectOutput(ProcessBuilder.Redirect.PIPE)
-                .redirectError(ProcessBuilder.Redirect.PIPE)
-                .start();
-
-            Log.i(TAG,"Traggo is running!")
-
-            p.waitFor()
-
-            Log.i(TAG,"Traggo has stopped!")
-
-            val outputText = p.inputStream.bufferedReader().readText()
-
-            Log.i(TAG, "Traggo stdout: $outputText")
-            Log.i(TAG, "Traggo exited with return code: ${p.exitValue()}")
+    override fun onBackPressed() {
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_settings -> return true
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
+    fun displayScreen(id: Int){
+
+       // val fragment =  when (id){
+
+        when (id){
+            R.id.nav_home -> {
+                supportFragmentManager.beginTransaction().replace(R.id.relativelayout, WebViewFragment()).commit()
+            }
+
+            R.id.nav_settings -> {
+                supportFragmentManager.beginTransaction().replace(R.id.relativelayout, SettingsFragment()).commit()
+            }
+        }
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        // Handle navigation view item clicks here.
+
+        displayScreen(item.itemId)
+
+        drawer_layout.closeDrawer(GravityCompat.START)
+        return true
+    }
 
 
 }
