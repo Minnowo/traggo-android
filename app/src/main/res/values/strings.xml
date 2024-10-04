@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Traggo</string>
+    <string name="nav_header_title">Traggo Android</string>
+    <string name="nav_header_desc">Traggo Android</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_home">Home</string>
+    <string name="navigation_drawer_open">Open Drawer</string>
+    <string name="navigation_drawer_close">Close Drawer</string>
+
+</resources>
