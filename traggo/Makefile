@@ -1,9 +1,10 @@
 
 
-# TODO update this
-NDK_BIN := /home/minno/Android/Sdk/ndk/27.1.12297006/toolchains/llvm/prebuilt/linux-x86_64/bin
+# The path and version of your Android NDK
+NDK_VER ?= 27.1.12297006
+NDK_BIN ?= /opt/android-sdk/ndk/$(NDK_VER)/toolchains/llvm/prebuilt/linux-x86_64/bin
 
-# SDK target version
+# SDK min target version
 SDK_VER := 24
 
 OUT_DIR := $(abspath ../app/src/main/jniLibs)
