@@ -1,21 +1,20 @@
-package com.github.traggo_android.service
-
-import android.util.Log
-import kotlinx.coroutines.Runnable
-import java.io.File
+package com.github.traggo.service
 
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
-import com.github.traggo_android.utils.Env
-import com.github.traggo_android.utils.Paths
+import com.github.traggo.utils.Env
+import com.github.traggo.utils.Paths
+import kotlinx.coroutines.Runnable
+import java.io.File
 import java.io.IOException
 
-class TraggoRunnable(private val context:Context) : Runnable{
-
-    private fun makeFileExecutable(file: File){
-
+class TraggoRunnable(
+    private val context: Context,
+) : Runnable {
+    private fun makeFileExecutable(file: File) {
         try {
             Log.d(TAG, "chmod 500 $file")
 
@@ -30,30 +29,28 @@ class TraggoRunnable(private val context:Context) : Runnable{
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun run() {
-
-        val traggoPath = Paths.getTraggoPath(context);
+        val traggoPath = Paths.getTraggoPath(context)
 
         Log.d(TAG, "Traggo is located at $traggoPath")
 
-        if(!traggoPath.exists()){
+        if (!traggoPath.exists()) {
+            Log.i(TAG, "Traggo does not exist!!!")
 
-            Log.i(TAG,"Traggo does not exist!!!")
-
-            return;
+            return
         }
 
         makeFileExecutable(traggoPath)
 
         while (true) {
-
             val pb = ProcessBuilder(traggoPath.path)
 
             pb.environment().putAll(Env.getDefaultEnv(context))
 
-            val p = pb
-                .redirectOutput(ProcessBuilder.Redirect.PIPE)
-                .redirectError(ProcessBuilder.Redirect.PIPE)
-                .start();
+            val p =
+                pb
+                    .redirectOutput(ProcessBuilder.Redirect.PIPE)
+                    .redirectError(ProcessBuilder.Redirect.PIPE)
+                    .start()
 
             Log.i(TAG, "Traggo is running!")
 

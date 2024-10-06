@@ -1,14 +1,15 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("org.jmailen.kotlinter") version "4.4.1"
 }
 
 android {
-    namespace = "com.github.traggo_android"
+    namespace = "com.github.traggo"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.github.traggo_android"
+        applicationId = "com.github.traggo"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -20,9 +21,47 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+
+            val storeFilPath = System.getenv("RELEASE_STORE_FILE")
+
+            println("Key Store file: $storeFilPath")
+
+            storeFile = storeFilPath?.let(::file)
+
+            println("Key Store exists: ${storeFile?.exists()}")
+
+            storePassword = System.getenv("RELEASE_STORE_PASSWORD")
+            keyAlias = System.getenv("RELEASE_KEY_ALIAS")
+            keyPassword = System.getenv("RELEASE_KEY_PASSWORD")
+
+            // enableV1Signing = true
+            // enableV2Signing = true
+            // enableV3Signing = true
+            // enableV4Signing = true
+        }
+    }
+
+
     buildTypes {
-        release {
+        getByName("debug") {
+            applicationIdSuffix = ".debug"
+            isDebuggable = true
+            isJniDebuggable = true
             isMinifyEnabled = false
+            isRenderscriptDebuggable = true
+        }
+        getByName("release") {
+
+            isMinifyEnabled = true
+
+            signingConfig = signingConfigs.runCatching { getByName("release") }
+                .getOrNull()
+                .takeIf { it?.storeFile != null }
+
+            println("Found signing config: ${signingConfig != null}");
+
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -30,11 +69,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -43,17 +82,25 @@ android {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
 
+    kotlinter {
+        failBuildWhenCannotAutoFormat = true
+        ignoreFailures = false
+        reporters = arrayOf("checkstyle", "plain")
+    }
+
     packaging {
 
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
 
+        // needed otherwise we can't find traggo.so
         jniLibs {
             useLegacyPackaging = true
         }
     }
 }
+
 
 dependencies {
 

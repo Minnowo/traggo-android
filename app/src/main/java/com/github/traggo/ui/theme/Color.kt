@@ -1,4 +1,4 @@
-package com.github.traggo_android.ui.theme
+package com.github.traggo.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
