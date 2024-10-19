@@ -1,10 +1,10 @@
 package com.github.traggo.service
 
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import com.github.traggo.utils.Constants.TRAGGO_TAG
 import com.github.traggo.utils.Env
 import com.github.traggo.utils.Paths
 import kotlinx.coroutines.Runnable
@@ -16,14 +16,14 @@ class TraggoRunnable(
 ) : Runnable {
     private fun makeFileExecutable(file: File) {
         try {
-            Log.d(TAG, "chmod 500 $file")
+            Log.d(TRAGGO_TAG, "chmod 500 $file")
 
             val p = ProcessBuilder("chmod", "500", file.path).start()
             p.waitFor()
         } catch (e: IOException) {
-            Log.e(TAG, "Failed to chmod $file", e)
+            Log.e(TRAGGO_TAG, "Failed to chmod $file", e)
         } catch (e: InterruptedException) {
-            Log.e(TAG, "Failed to chmod $file", e)
+            Log.e(TRAGGO_TAG, "Failed to chmod $file", e)
         }
     }
 
@@ -31,10 +31,10 @@ class TraggoRunnable(
     override fun run() {
         val traggoPath = Paths.getTraggoPath(context)
 
-        Log.d(TAG, "Traggo is located at $traggoPath")
+        Log.d(TRAGGO_TAG, "Traggo is located at $traggoPath")
 
         if (!traggoPath.exists()) {
-            Log.i(TAG, "Traggo does not exist!!!")
+            Log.i(TRAGGO_TAG, "Traggo does not exist!!!")
 
             return
         }
@@ -52,16 +52,16 @@ class TraggoRunnable(
                     .redirectError(ProcessBuilder.Redirect.PIPE)
                     .start()
 
-            Log.i(TAG, "Traggo is running!")
+            Log.i(TRAGGO_TAG, "Traggo is running!")
 
             p.waitFor()
 
-            Log.i(TAG, "Traggo has stopped!")
+            Log.i(TRAGGO_TAG, "Traggo has stopped!")
 
             val outputText = p.inputStream.bufferedReader().readText()
 
-            Log.i(TAG, "Traggo stdout: $outputText")
-            Log.i(TAG, "Traggo exited with return code: ${p.exitValue()}")
+            Log.i(TRAGGO_TAG, "Traggo stdout: $outputText")
+            Log.i(TRAGGO_TAG, "Traggo exited with return code: ${p.exitValue()}")
         }
     }
 }
