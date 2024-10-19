@@ -3,7 +3,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.CookieManager
 import android.webkit.WebView
+import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.github.traggo.R
 
@@ -21,6 +24,27 @@ class WebViewFragment : Fragment() {
         webView.settings.javaScriptEnabled = true
         webView.settings.setSupportZoom(true)
 
+        webView.setWebViewClient(
+            object : WebViewClient() {
+                override fun onReceivedError(
+                    webView: WebView,
+                    errorCode: Int,
+                    description: String,
+                    failingUrl: String,
+                ) {
+                    if (activity != null) {
+                        Toast.makeText(activity!!.applicationContext, "Oh no! $description", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onPageFinished(
+                    webView: WebView,
+                    url: String,
+                ) {
+                    CookieManager.getInstance().flush()
+                }
+            },
+        )
         return view
     }
 }
