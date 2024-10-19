@@ -15,6 +15,9 @@ all: setup_traggo build
 build: build_arm build_arm64 build_x86 build_x86_64
 
 setup_traggo:
+	make -C $(TRAGGO_SRC) download-tools install generate build-js
+
+setup_traggo2:
 	NODE_OPTIONS="--openssl-legacy-provider" \
 				 make -C $(TRAGGO_SRC) \
 				 download-tools install generate build-js
