@@ -6,5 +6,28 @@
     <string name="action_home">Home</string>
     <string name="navigation_drawer_open">Open Drawer</string>
     <string name="navigation_drawer_close">Close Drawer</string>
+    <!-- Preference Titles -->
+    <string name="setting_category_traggo_android">Traggo Android</string>
+    <string name="setting_category_traggo_server">Traggo Server</string>
+
+    <!-- Traggo Android Preferences -->
+    <string name="key_setting_traggo_android_url">key_setting_traggo_android_url</string>
+    <string name="setting_traggo_android_url">Traggo Server</string>
+
+    <!-- Traggo Server Preferences -->
+    <string name="key_setting_traggo_server_port_number">key_setting_traggo_server_port_number</string>
+    <string name="setting_traggo_server_port_number">Port</string>
+
+    <string name="key_setting_traggo_server_password_strength">key_setting_traggo_server_password_strength</string>
+    <string name="setting_traggo_server_password_strength">Password Strength</string>
+
+    <string name="key_setting_traggo_server_log_level">key_setting_traggo_server_log_level</string>
+    <string name="setting_traggo_server_log_level">Log Level</string>
+
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 
 </resources>

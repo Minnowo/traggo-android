@@ -1,19 +1,28 @@
 package com.github.traggo.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.text.InputType
+import androidx.preference.EditTextPreference
+import androidx.preference.PreferenceFragmentCompat
 import com.github.traggo.R
 
-class SettingsFragment : Fragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+class SettingsFragment : PreferenceFragmentCompat() {
+    override fun onCreatePreferences(
         savedInstanceState: Bundle?,
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+        rootKey: String?,
+    ) {
+        setPreferencesFromResource(R.xml.root_preferences, rootKey)
+
+        val traggoServerPort = findPreference<EditTextPreference>(getString(R.string.key_setting_traggo_server_port_number))
+        val traggoServerPasswordStrength =
+            findPreference<EditTextPreference>(getString(R.string.key_setting_traggo_server_password_strength))
+
+        traggoServerPort?.setOnBindEditTextListener {
+            it.inputType = InputType.TYPE_CLASS_NUMBER
+        }
+
+        traggoServerPasswordStrength?.setOnBindEditTextListener {
+            it.inputType = InputType.TYPE_CLASS_NUMBER
+        }
     }
 }

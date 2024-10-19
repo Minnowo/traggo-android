@@ -1,0 +1,45 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/setting_category_traggo_android"
+       app:icon="@drawable/baseline_app_settings_alt_24"
+        >
+
+        <EditTextPreference
+            app:key="@string/key_setting_traggo_android_url"
+            app:title="@string/setting_traggo_android_url"
+            app:useSimpleSummaryProvider="true"
+            app:defaultValue="http://localhost:3030"
+            />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/setting_category_traggo_server"
+        app:icon="@drawable/baseline_computer_24"
+        >
+
+        <EditTextPreference
+            app:key="@string/key_setting_traggo_server_port_number"
+            app:title="@string/setting_traggo_server_port_number"
+            app:useSimpleSummaryProvider="true"
+            app:defaultValue="3030"
+            />
+
+        <ListPreference
+            app:entries="@array/traggo_server_log_level_entries"
+            app:entryValues="@array/traggo_server_log_level_values"
+            app:key="@string/key_setting_traggo_server_log_level"
+            app:title="@string/setting_traggo_server_log_level"
+            app:useSimpleSummaryProvider="true"
+            app:defaultValue="info"
+            />
+
+        <EditTextPreference
+            app:key="@string/key_setting_traggo_server_password_strength"
+            app:title="@string/setting_traggo_server_password_strength"
+            app:useSimpleSummaryProvider="true"
+            app:defaultValue="10"
+            />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
