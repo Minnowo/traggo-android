@@ -25,5 +25,21 @@ jobs:
       run: docker build ./docker --file ./docker/Dockerfile --tag traggo-android-builder:latest
 
     - name: Build the app
-      run: docker run --rm -it -v .:/mnt traggo-android-builder:latest sh build.sh
+      env:
+        RELEASE_STORE_FILE: '${{ runner.temp }}/signing.jks'
+        RELEASE_STORE_FILE_BASE64: '${{ secrets.KEYSTORE_JKS_BASE64 }}'
+        RELEASE_STORE_PASSWORD: '${{ secrets.KEYSTORE_PASSWORD }}'
+        RELEASE_KEY_ALIAS: '${{ secrets.KEY_ALIAS }}'
+        RELEASE_KEY_PASSWORD: '${{ secrets.KEY_PASSWORD }}'
+      shell: bash
+      run: |
+        set -eu -o pipefail
+        docker run --rm -it \
+          -v .:/mnt \
+          -e KEYSTORE_JKS_BASE64="$RELEASE_STORE_FILE_BASE64" \
+          -e RELEASE_STORE_FILE="$RELEASE_STORE_FILE" \
+          -e RELEASE_STORE_PASSWORD="$RELEASE_STORE_PASSWORD" \
+          -e RELEASE_KEY_ALIAS="$RELEASE_KEY_ALIAS" \
+          -e RELEASE_KEY_PASSWORD="$RELEASE_KEY_PASSWORD" \
+          traggo-android-builder:latest sh build.sh
 
