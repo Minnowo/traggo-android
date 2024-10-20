@@ -26,7 +26,8 @@ jobs:
         RELEASE_STORE_PASSWORD: '${{ secrets.KEYSTORE_PASSWORD }}'
         RELEASE_KEY_ALIAS: '${{ secrets.KEY_ALIAS }}'
         RELEASE_KEY_PASSWORD: '${{ secrets.KEY_PASSWORD }}'
-      run: docker run --rm -it \
+      run: |
+        docker run --rm \
           -v .:/mnt \
           -e KEYSTORE_JKS_BASE64="$RELEASE_STORE_FILE_BASE64" \
           -e RELEASE_STORE_FILE="$RELEASE_STORE_FILE" \
