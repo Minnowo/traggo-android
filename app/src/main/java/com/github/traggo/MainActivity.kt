@@ -9,7 +9,6 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.github.traggo.fragment.SettingsFragment
 import com.github.traggo.fragment.WebViewFragment
-import com.github.traggo.service.TraggoRunnable
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity :
@@ -22,8 +21,6 @@ class MainActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        Thread(TraggoRunnable(applicationContext)).start()
 
         toolbar = findViewById(R.id.toolbar)
         drawerLayout = findViewById(R.id.drawer_layout)

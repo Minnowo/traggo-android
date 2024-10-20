@@ -9,6 +9,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.github.traggo.App
 import com.github.traggo.CompileTime
 import com.github.traggo.R
 import com.github.traggo.utils.Constants.TRAGGO_TAG
@@ -19,6 +20,8 @@ class WebViewFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
+        App.i().traggoService.startTraggo()
+
         val view = inflater.inflate(R.layout.fragment_webview, container, false)
 
         val webView = view.findViewById<WebView>(R.id.webview)
@@ -38,9 +41,7 @@ class WebViewFragment : Fragment() {
                 ) {
                     Log.w(TRAGGO_TAG, "Webview error: $errorCode $description")
 
-                    if (activity != null) {
-                        Toast.makeText(activity!!.applicationContext, "Oh no! $description", Toast.LENGTH_SHORT).show()
-                    }
+                    Toast.makeText(requireActivity(), "Oh no! $description", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onPageFinished(

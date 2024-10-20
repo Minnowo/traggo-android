@@ -24,10 +24,8 @@
     <string name="key_setting_traggo_server_log_level">key_setting_traggo_server_log_level</string>
     <string name="setting_traggo_server_log_level">Log Level</string>
 
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <!-- Toast messages -->
+    <string name="toast_traggo_running">Traggo Server starting</string>
+    <string name="toast_traggo_exited">Traggo Server has exited with status: %1$d</string>
 
 </resources>
