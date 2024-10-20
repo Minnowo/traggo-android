@@ -21,6 +21,15 @@ android {
         }
     }
 
+    splits {
+        abi {
+            isEnable = true
+            reset()
+            include("x86", "x86_64", "armeabi", "arm64-v8a")
+            isUniversalApk = true
+        }
+    }
+
     signingConfigs {
         create("release") {
 
