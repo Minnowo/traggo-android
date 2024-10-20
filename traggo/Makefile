@@ -15,12 +15,13 @@ all: setup_traggo build
 build: build_arm build_arm64 build_x86 build_x86_64
 
 setup_traggo:
-	make -C $(TRAGGO_SRC) download-tools install generate build-js
-
-setup_traggo2:
-	NODE_OPTIONS="--openssl-legacy-provider" \
-				 make -C $(TRAGGO_SRC) \
-				 download-tools install generate build-js
+	@if make -C $(TRAGGO_SRC) download-tools install generate build-js; then \
+		echo "Build succeeded without NODE_OPTIONS"; \
+	else \
+		echo "Build failed, trying with NODE_OPTIONS"; \
+		NODE_OPTIONS="--openssl-legacy-provider" \
+				 make -C $(TRAGGO_SRC) download-tools install generate build-js; \
+	fi
 
 build_arm:
 
