@@ -1,0 +1,43 @@
+
+name: Docker Image CI
+
+on: workflow_dispatch
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: actions/checkout@v4
+      with:
+          submodules: true
+          fetch-depth: 0
+
+    - name: Build the builder Docker image
+      run: docker build ./docker --file ./docker/Dockerfile --tag traggo-android-builder:latest
+
+    - name: Build apk
+      env:
+        RELEASE_STORE_FILE: '${{ runner.temp }}/signing.jks'
+        RELEASE_STORE_FILE_BASE64: '${{ secrets.KEYSTORE_JKS_BASE64 }}'
+        RELEASE_STORE_PASSWORD: '${{ secrets.KEYSTORE_PASSWORD }}'
+        RELEASE_KEY_ALIAS: '${{ secrets.KEY_ALIAS }}'
+        RELEASE_KEY_PASSWORD: '${{ secrets.KEY_PASSWORD }}'
+      run: docker run --rm -it \
+          -v .:/mnt \
+          -e KEYSTORE_JKS_BASE64="$RELEASE_STORE_FILE_BASE64" \
+          -e RELEASE_STORE_FILE="$RELEASE_STORE_FILE" \
+          -e RELEASE_STORE_PASSWORD="$RELEASE_STORE_PASSWORD" \
+          -e RELEASE_KEY_ALIAS="$RELEASE_KEY_ALIAS" \
+          -e RELEASE_KEY_PASSWORD="$RELEASE_KEY_PASSWORD" \
+          traggo-android-builder:latest sh build.sh
+
+    - uses: ncipollo/release-action@v1
+      with:
+        artifacts: "app/build/outputs/apk/release/*.apk"
+        artifactErrorsFailBuild: true
+        prerelease: ${{ contains('-rc.', github.ref_name) }}
+        draft: true
