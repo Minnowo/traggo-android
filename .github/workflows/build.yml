@@ -2,9 +2,6 @@
 name: Docker Image CI
 
 on:
-  push:
-    tags:
-    - '*'
   workflow_dispatch:   # Enables manual run
     inputs:
       tag:
