@@ -32,7 +32,7 @@ jobs:
 
     - name: Build apk
       env:
-        RELEASE_STORE_FILE: '${{ runner.temp }}/signing.jks'
+        RELEASE_STORE_FILE: '/tmp/signing.jks'
         RELEASE_STORE_FILE_BASE64: '${{ secrets.KEYSTORE_JKS_BASE64 }}'
         RELEASE_STORE_PASSWORD: '${{ secrets.KEYSTORE_PASSWORD }}'
         RELEASE_KEY_ALIAS: '${{ secrets.KEY_ALIAS }}'
