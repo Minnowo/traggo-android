@@ -1,14 +1,25 @@
 
 name: Docker Image CI
 
-on: workflow_dispatch
-
+on:
+  push:
+    tags:
+    - '*'
+  workflow_dispatch:   # Enables manual run
+    inputs:
+      tag:
+        description: 'Tag for the release'
+        required: true
+      commit:
+        description: 'Commit hash if tag doesnt exist'
+        required: false
 jobs:
 
   build:
 
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write
     steps:
 
     - uses: actions/checkout@v4
@@ -38,6 +49,8 @@ jobs:
 
     - uses: ncipollo/release-action@v1
       with:
+        tag: ${{ github.event.inputs.tag }}
+        commit: ${{ github.event.inputs.commit }}
         artifacts: "app/build/outputs/apk/release/*.apk"
         artifactErrorsFailBuild: true
         prerelease: ${{ contains('-rc.', github.ref_name) }}
