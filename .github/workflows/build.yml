@@ -1,0 +1,29 @@
+
+name: Docker Image CI
+
+on:
+  workflow_call:
+    inputs:
+      push:
+        required: true
+        type: boolean
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - uses: actions/checkout@v4
+      with:
+          submodules: true
+          fetch-depth: 0
+          
+    - name: Build the builder Docker image
+      run: docker build ./docker --file ./docker/Dockerfile --tag traggo-android-builder:latest
+
+    - name: Build the app
+      run: docker run --rm -it -v .:/mnt traggo-android-builder:latest sh build.sh
+
