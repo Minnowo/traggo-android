@@ -10,4 +10,7 @@ WORKDIR /opt
 RUN apt-get update && \
     apt-get install --reinstall --no-install-recommends -y build-essential git
 
+RUN git config --global --ad safe.directory /mnt && \
+    git config --global --ad safe.directory /mnt/traggo/traggo/server
+
 WORKDIR /mnt

@@ -24,11 +24,6 @@ jobs:
           submodules: true
           fetch-depth: 0
 
-    - name: manually update submodules
-      run: |
-        git submodule sync --recursive
-        git submodule update --init --recursive
-
     - name: Build the builder Docker image
       run: docker build ./docker --file ./docker/empty.Dockerfile --tag traggo-android-builder:latest
 
