@@ -1,7 +1,9 @@
 #!/bin/sh
 
+git config --global --add safe.directory /mnt
+
 # hopfully this has a message for us
-git -v
+git --version
 
 git branch
 
