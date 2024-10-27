@@ -48,4 +48,7 @@ RUN $SDKMANAGER tools platform-tools "build-tools;34.0.0" "platforms;android-34"
 # Accept licenses of newly installed packages
 RUN yes | $SDKMANAGER --licenses
 
+RUN git config --global --add safe.directory /mnt && \
+    git config --global --add safe.directory /mnt/traggo/traggo/server
+
 WORKDIR /mnt
