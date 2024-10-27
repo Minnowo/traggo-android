@@ -10,9 +10,9 @@ SDK_VER := 24
 OUT_DIR := $(abspath ../app/src/main/jniLibs)
 TRAGGO_SRC := ./traggo/server
 
-DATE=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
-COMMIT=$(shell git -C $(TRAGGO_SRC) rev-parse --verify HEAD)
-VERSION=$(shell git -C $(TRAGGO_SRC) describe --tags --abbrev=0 | cut -c 2-)
+DATE    :=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
+COMMIT  :=$(shell git -C $(TRAGGO_SRC) rev-parse --verify HEAD)
+VERSION :=$(shell git -C $(TRAGGO_SRC) describe --tags --abbrev=0 | cut -c 2-)
 
 all: setup_traggo build
 
