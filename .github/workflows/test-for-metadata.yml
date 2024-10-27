@@ -1,0 +1,40 @@
+
+name: Build Release APK
+
+on:
+  workflow_dispatch:   # Enables manual run
+    inputs:
+      tag:
+        description: 'Tag for the release'
+        required: true
+      commit:
+        description: 'Commit hash if tag doesnt exist'
+        required: false
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+
+    - uses: actions/checkout@v4
+      with:
+          submodules: true
+          fetch-depth: 0
+
+    - name: manually update submodules
+      run: |
+        git submodule sync --recursive
+        git submodule update --init --recursive
+
+    - name: Build the builder Docker image
+      run: docker build ./docker --file ./docker/empty.Dockerfile --tag traggo-android-builder:latest
+
+    - name: Build apk
+      run: |
+        docker run --rm \
+          -v .:/mnt \
+          traggo-android-builder:latest sh build.sh
+

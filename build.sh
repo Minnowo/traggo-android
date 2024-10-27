@@ -1,25 +1,15 @@
 #!/bin/sh
 
-# This is for use by the Docker builder
+# hopfully this has a message for us
+git -v
 
-# Build Traggo
-make -C ./traggo
+git branch
 
+git submodule
 
-# I couldn't figure out how to mount the keystore file so we're doing this
-if [ -n "$KEYSTORE_JKS_BASE64" ]; then
+git -C ./traggo/traggo/server rev-parse --verify HEAD
 
-    echo "$KEYSTORE_JKS_BASE64" | base64 -d > "$RELEASE_STORE_FILE"
-fi
+git -C ./traggo/traggo/server describe --tags --abbrev=0 | cut -c 2-
 
-
-# Build the app
-./gradlew --no-daemon build
-
-
-if [ -e "$RELEASE_STORE_FILE" ]; then
-
-    echo "Release store file exists: $RELEASE_STORE_FILE"
-    rm -f "$RELEASE_STORE_FILE"
-fi
+git -C ./traggo/traggo/server describe --tags --abbrev=0
 
