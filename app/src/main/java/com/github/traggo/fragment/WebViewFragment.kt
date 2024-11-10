@@ -9,6 +9,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceManager
 import com.github.traggo.App
 import com.github.traggo.CompileTime
 import com.github.traggo.R
@@ -26,7 +27,12 @@ class WebViewFragment : Fragment() {
 
         val webView = view.findViewById<WebView>(R.id.webview)
 
-        webView.loadUrl("http://localhost:3030")
+        val prefs = PreferenceManager.getDefaultSharedPreferences(requireActivity())
+        val url = prefs.getString(requireActivity().getString(R.string.key_setting_traggo_android_url), "http://localhost:3030")!!
+
+        Log.i(TRAGGO_TAG, "Webview is showing: $url")
+
+        webView.loadUrl(url)
         webView.settings.setJavaScriptEnabled(true)
         webView.settings.setSupportZoom(true)
         webView.settings.setDomStorageEnabled(true)

@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.os.Message
 import android.util.Log
 import androidx.annotation.StringRes
+import androidx.preference.PreferenceManager
 import com.github.traggo.service.ToastService
 import com.github.traggo.service.TraggoService
 import com.github.traggo.utils.Constants
 import com.github.traggo.utils.Constants.TRAGGO_TAG
+import com.github.traggo.utils.Env
 import com.github.traggo.utils.Paths
 
 class App : Application() {
@@ -37,6 +39,13 @@ class App : Application() {
         Log.i(TRAGGO_TAG, "Starting Traggo Server")
 
         traggoService.startTraggo()
+    }
+
+    fun getTraggoEnv(): Map<String, String> {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        val traggoEnv: HashMap<String, String> = HashMap()
+        traggoEnv.putAll(Env.getEnvFromPrefs(applicationContext, prefs))
+        return traggoEnv
     }
 
     fun showToast(

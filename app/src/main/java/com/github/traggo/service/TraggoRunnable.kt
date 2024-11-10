@@ -2,7 +2,6 @@ package com.github.traggo.service
 
 import android.util.Log
 import com.github.traggo.utils.Constants.TRAGGO_TAG
-import com.github.traggo.utils.Env
 import com.github.traggo.utils.Paths
 import com.github.traggo.utils.ProcessUtils
 import kotlinx.coroutines.Runnable
@@ -12,6 +11,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 class TraggoRunnable(
     private val running: AtomicBoolean,
+    var traggoEnv: Map<String, String>,
 ) : Runnable {
     var process: Process? = null
 
@@ -35,6 +35,10 @@ class TraggoRunnable(
         }
     }
 
+    fun updateEnv(hm: Map<String, String>) {
+        traggoEnv = hm
+    }
+
     override fun run() {
         val traggoPath = Paths.getTraggoPath()
 
@@ -49,7 +53,7 @@ class TraggoRunnable(
         makeFileExecutable(traggoPath)
 
         val pb = ProcessBuilder(traggoPath.path)
-        pb.environment().putAll(Env.getDefaultEnv())
+        pb.environment().putAll(traggoEnv)
 
         val p = pb.start()
 

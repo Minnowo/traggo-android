@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 class TraggoService {
     private val isTraggoRunning = AtomicBoolean(false)
-    private val traggoRunnable: TraggoRunnable = TraggoRunnable(isTraggoRunning)
+    private val traggoRunnable: TraggoRunnable = TraggoRunnable(isTraggoRunning, HashMap())
 
     fun isRunning(): Boolean = isTraggoRunning.get()
 
@@ -18,6 +18,7 @@ class TraggoService {
         Thread {
             App.i().showToast(R.string.toast_traggo_running)
 
+            traggoRunnable.updateEnv(App.i().getTraggoEnv())
             traggoRunnable.run()
 
             val exit = traggoRunnable.getExitStatus()
