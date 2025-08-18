@@ -1,7 +1,7 @@
-package com.github.traggo.service
+package com.github.minnowo.traggo.service
 
-import com.github.traggo.App
-import com.github.traggo.R
+import com.github.minnowo.traggo.App
+import com.github.minnowo.traggo.R
 import java.util.concurrent.atomic.AtomicBoolean
 
 class TraggoService {

@@ -1,4 +1,4 @@
-package com.github.traggo.ui.theme
+package com.github.minnowo.traggo.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

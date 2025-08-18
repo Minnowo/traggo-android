@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.github.traggo"
+    namespace = "com.github.minnowo.traggo"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.github.traggo"
+        applicationId = "com.github.minnowo.traggo"
         minSdk = 24
         targetSdk = 34
         versionCode = 6

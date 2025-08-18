@@ -1,10 +1,10 @@
-package com.github.traggo.fragment
+package com.github.minnowo.traggo.fragment
 
 import android.os.Bundle
 import android.text.InputType
 import androidx.preference.EditTextPreference
 import androidx.preference.PreferenceFragmentCompat
-import com.github.traggo.R
+import com.github.minnowo.traggo.R
 
 class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(

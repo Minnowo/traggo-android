@@ -1,9 +1,9 @@
-package com.github.traggo.utils
+package com.github.minnowo.traggo.utils
 
 import android.os.Build
 import android.util.Log
-import com.github.traggo.CompileTime
-import com.github.traggo.utils.Constants.TRAGGO_TAG
+import com.github.minnowo.traggo.CompileTime
+import com.github.minnowo.traggo.utils.Constants.TRAGGO_TAG
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader

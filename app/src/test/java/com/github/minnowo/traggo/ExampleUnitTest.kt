@@ -1,4 +1,4 @@
-package com.github.traggo
+package com.github.minnowo.traggo
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

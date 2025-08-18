@@ -1,4 +1,4 @@
-package com.github.traggo.utils
+package com.github.minnowo.traggo.utils
 
 object Constants {
     val TRAGGO_TAG = "TRAGGO"
