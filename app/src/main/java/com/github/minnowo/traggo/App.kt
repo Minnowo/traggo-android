@@ -1,4 +1,4 @@
-package com.github.traggo
+package com.github.minnowo.traggo
 
 import android.app.Application
 import android.os.Bundle
@@ -6,12 +6,12 @@ import android.os.Message
 import android.util.Log
 import androidx.annotation.StringRes
 import androidx.preference.PreferenceManager
-import com.github.traggo.service.ToastService
-import com.github.traggo.service.TraggoService
-import com.github.traggo.utils.Constants
-import com.github.traggo.utils.Constants.TRAGGO_TAG
-import com.github.traggo.utils.Env
-import com.github.traggo.utils.Paths
+import com.github.minnowo.traggo.service.ToastService
+import com.github.minnowo.traggo.service.TraggoService
+import com.github.minnowo.traggo.utils.Constants
+import com.github.minnowo.traggo.utils.Constants.TRAGGO_TAG
+import com.github.minnowo.traggo.utils.Env
+import com.github.minnowo.traggo.utils.Paths
 
 class App : Application() {
     companion object {

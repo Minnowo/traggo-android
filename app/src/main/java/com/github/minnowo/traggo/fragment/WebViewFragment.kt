@@ -1,4 +1,4 @@
-package com.github.traggo.fragment
+package com.github.minnowo.traggo.fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,10 +10,10 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
-import com.github.traggo.App
-import com.github.traggo.CompileTime
-import com.github.traggo.R
-import com.github.traggo.utils.Constants.TRAGGO_TAG
+import com.github.minnowo.traggo.App
+import com.github.minnowo.traggo.CompileTime
+import com.github.minnowo.traggo.R
+import com.github.minnowo.traggo.utils.Constants.TRAGGO_TAG
 
 class WebViewFragment : Fragment() {
     override fun onCreateView(

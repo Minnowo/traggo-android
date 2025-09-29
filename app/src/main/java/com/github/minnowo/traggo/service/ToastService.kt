@@ -1,11 +1,11 @@
-package com.github.traggo.service
+package com.github.minnowo.traggo.service
 
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.widget.Toast
-import com.github.traggo.utils.Constants
+import com.github.minnowo.traggo.utils.Constants
 
 class ToastService(
     val context: Context,

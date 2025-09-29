@@ -1,4 +1,4 @@
-package com.github.traggo
+package com.github.minnowo.traggo
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.github.traggo.fragment.SettingsFragment
-import com.github.traggo.fragment.WebViewFragment
+import com.github.minnowo.traggo.fragment.SettingsFragment
+import com.github.minnowo.traggo.fragment.WebViewFragment
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity :

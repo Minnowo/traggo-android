@@ -1,4 +1,4 @@
-package com.github.traggo.utils
+package com.github.minnowo.traggo.utils
 
 import android.content.Context
 import java.io.File

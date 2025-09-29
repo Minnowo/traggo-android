@@ -1,9 +1,9 @@
-package com.github.traggo.service
+package com.github.minnowo.traggo.service
 
 import android.util.Log
-import com.github.traggo.utils.Constants.TRAGGO_TAG
-import com.github.traggo.utils.Paths
-import com.github.traggo.utils.ProcessUtils
+import com.github.minnowo.traggo.utils.Constants.TRAGGO_TAG
+import com.github.minnowo.traggo.utils.Paths
+import com.github.minnowo.traggo.utils.ProcessUtils
 import kotlinx.coroutines.Runnable
 import java.io.File
 import java.io.IOException

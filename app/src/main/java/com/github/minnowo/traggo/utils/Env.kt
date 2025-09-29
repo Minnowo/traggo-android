@@ -1,11 +1,11 @@
-package com.github.traggo.utils
+package com.github.minnowo.traggo.utils
 
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import androidx.core.content.ContextCompat.getString
-import com.github.traggo.R
-import com.github.traggo.utils.Constants.TRAGGO_TAG
+import com.github.minnowo.traggo.R
+import com.github.minnowo.traggo.utils.Constants.TRAGGO_TAG
 
 object Env {
     val TRAGGO_PORT_ENV = "TRAGGO_PORT"
