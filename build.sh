@@ -2,6 +2,11 @@
 
 # This is for use by the Docker builder
 
+if [ -d "/mnt/traggo/traggo/server" ]; then
+    git config --global --add safe.directory /mnt/
+    git config --global --add safe.directory /mnt/traggo/traggo/server
+fi
+
 # Build Traggo
 make -C ./traggo
 
